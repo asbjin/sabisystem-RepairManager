@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `customers` (
 `cust_id` int(11) NOT NULL,
-  `nom_entreprise` char(25) NOT NULL,
-  `adresse` char(25) NOT NULL,
-  `number_register` int(20) NOT NULL,
-  `nom_contact` char(20) NOT NULL DEFAULT '',
+  `nom_entreprise` char(50) NOT NULL,
+  `adresse` char(50) NOT NULL,
+  `number_register` char(40) NOT NULL,
+  `nom_contact` char(40) NOT NULL DEFAULT '',
   `tel` int(15) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
@@ -40,16 +40,16 @@ CREATE TABLE IF NOT EXISTS `customers` (
 --
 -- Insérer des enregistrements dans la table customers
 INSERT INTO `customers` (`cust_id`, `nom_entreprise`, `adresse`, `number_register`, `nom_contact`, `tel`) VALUES
-(1, 'Tech Solutions', '123 Tech Street', 1234567890, 'John Doe', 123456789),
-(2, 'Computer Services', '456 Comp Avenue', 2345678901, 'Jane Smith', 234567890),
-(3, 'IT Experts', '789 IT Blvd', 3456789012, 'Alice Brown', 345678901),
-(4, 'Gadget Fix', '101 Gadget Road', 4567890123, 'Bob White', 456789012),
-(5, 'Repair Hub', '202 Repair Lane', 5678901234, 'Charlie Green', 567890123),
-(6, 'Tech Repairs', '303 Tech Place', 6789012345, 'David Black', 678901234),
-(7, 'Quick Fix', '404 Quick Street', 7890123456, 'Eve Blue', 789012345),
-(8, 'Device Doctors', '505 Device Drive', 8901234567, 'Frank Yellow', 890123456),
-(9, 'Computer Clinic', '606 Comp Court', 9012345678, 'Grace Purple', 901234567),
-(10, 'Laptop Lab', '707 Laptop Avenue', 1234567899, 'Hank Orange', 123456789);
+(1, 'Tech Solutions', '123 Tech Street', '1234567890', 'John Doe', 123456789),
+(2, 'Computer Services', '456 Comp Avenue', '1234567890', 'Jane Smith', 234567890),
+(3, 'IT Experts', '789 IT Blvd', '1234567890', 'Alice Brown', 345678901),
+(4, 'Gadget Fix', '101 Gadget Road', '1234567890', 'Bob White', 456789012),
+(5, 'Repair Hub', '202 Repair Lane', '1234567890', 'Charlie Green', 567890123),
+(6, 'Tech Repairs', '303 Tech Place', '1234567890', 'David Black', 678901234),
+(7, 'Quick Fix', '404 Quick Street', '1234567890', 'Eve Blue', 789012345),
+(8, 'Device Doctors', '505 Device Drive', '1234567890', 'Frank Yellow', 890123456),
+(9, 'Computer Clinic', '606 Comp Court', '1234567890', 'Grace Purple', 901234567),
+(10, 'Laptop Lab', '707 Laptop Avenue', '1234567890', 'Hank Orange', 123456789);
 
 
 

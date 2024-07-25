@@ -52,7 +52,7 @@
 			if (mysqli_affected_rows($conn) == 1) {
 				$success =  "Repair added successfully. Redirecting.....<br><br>";
 				$id = $cust_id;
-				header("Location: addRepair.php");
+				header("refresh:3; url=addRepair.php");
 				
 				} else {
 				$notFound =  "Could not add due to system error!<br><br>";

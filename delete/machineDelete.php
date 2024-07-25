@@ -6,57 +6,72 @@ error_reporting(E_ALL);
 $deleted = '';
 $notDeleted = '';
 
-// Inclure le fichier de connexion à la base de données
+// Include the database connection file
 include '../dbconnect.php';
 
 if (isset($_POST['delete'])) {
     $machine_id = $_POST['machine_id'];
 
-    if ($machine_id == '' ) {
-        $notDeleted = "You did not complete the delete form correctly";
+    if ($machine_id == '') {
+        $notDeleted = "You did not complete the delete form correctly.";
         header("Location: ../machines.php?error=" . urlencode($notDeleted));
         exit();
     } else {
-        // Commencer une transaction
+        // Start a transaction
         mysqli_begin_transaction($conn);
 
         try {
-           
-            // Supprimer le client de la table machines
-            $sql_delete_machine = "DELETE FROM machines WHERE machine_id = ?";
-            $stmt_delete_machine = mysqli_prepare($conn, $sql_delete_machine);
+            // Check if the machine exists
+            $sql_check_machine = "SELECT * FROM machines WHERE machine_id = ?";
+            $stmt_check_machine = mysqli_prepare($conn, $sql_check_machine);
 
-            if (!$stmt_delete_machine) {
-                throw new Exception("Failed to prepare delete statement: " . mysqli_error($conn));
+            if (!$stmt_check_machine) {
+                throw new Exception("Failed to prepare select statement: " . mysqli_error($conn));
             }
 
-            mysqli_stmt_bind_param($stmt_delete_machine, "s", $machine_id);
-            mysqli_stmt_execute($stmt_delete_machine);
+            mysqli_stmt_bind_param($stmt_check_machine, "s", $machine_id);
+            mysqli_stmt_execute($stmt_check_machine);
+            mysqli_stmt_store_result($stmt_check_machine);
 
-            // Confirmer la transaction
-            mysqli_commit($conn);
+            if (mysqli_stmt_num_rows($stmt_check_machine) > 0) {
+                // Machine exists, proceed to delete
+                $sql_delete_machine = "DELETE FROM machines WHERE machine_id = ?";
+                $stmt_delete_machine = mysqli_prepare($conn, $sql_delete_machine);
 
-            $deleted = "Repair no. " . $machine_id . " has been deleted successfully";
-            header("Location: ../machines.php?success=" . urlencode($deleted));
+                if (!$stmt_delete_machine) {
+                    throw new Exception("Failed to prepare delete statement: " . mysqli_error($conn));
+                }
+
+                mysqli_stmt_bind_param($stmt_delete_machine, "s", $machine_id);
+                mysqli_stmt_execute($stmt_delete_machine);
+
+                // Commit the transaction
+                mysqli_commit($conn);
+
+                $deleted = "Machine no. " . $machine_id . " has been deleted successfully.";
+                header("Location: ../machines.php?success=" . urlencode($deleted));
+            } else {
+                // Machine does not exist
+                $notDeleted = "Machine no. " . $machine_id . " does not exist.";
+                header("Location: ../machines.php?error=" . urlencode($notDeleted));
+            }
         } catch (Exception $e) {
-            // Annuler la transaction en cas d'erreur
+            // Rollback the transaction in case of error
             mysqli_rollback($conn);
             $notDeleted = "Error: " . $e->getMessage();
             header("Location: ../machines.php?error=" . urlencode($notDeleted));
         }
 
-        // Fermer les statements
-        if (isset($stmt_update_machine)) {
-            mysqli_stmt_close($stmt_update_machine);
+        // Close the statements
+        if (isset($stmt_check_machine)) {
+            mysqli_stmt_close($stmt_check_machine);
         }
         if (isset($stmt_delete_machine)) {
             mysqli_stmt_close($stmt_delete_machine);
         }
 
-        // Fermer la connexion
+        // Close the connection
         mysqli_close($conn);
     }
 }
 ?>
-
-

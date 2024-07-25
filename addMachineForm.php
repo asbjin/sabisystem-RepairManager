@@ -1,6 +1,6 @@
 <?php
 	require_once('session.php');
-    
+    require_once('addNewMachine.php');
 ?>
 
 <!DOCTYPE html>
@@ -45,22 +45,29 @@
 		<div class="floats">
     	
 			<div class=" full-widget">
-				<?php
-					include_once('list/cust.php');
-				?>	
+				
 					<span id="message">
 					<?php 
 						echo $success; 
 						echo $error;
 					?>
 					</span>
-					<div>
-						<form class="form-4" method="post" action="addMachineForm.php">	
-							<p>Enter customer ID to Proceed with Repair:</p> <br>
-							<input type="number" name="customer_id" placeholder="Enter ID number e.g. 1" min="1" maxlength="10" required>
-							<input type="submit" name="go" value="Go to machine form >>">	
-						</form>
-					</div>
+					<form class="form-4" action="" method="post"> <!-- Assurez-vous que l'action pointe vers le bon fichier PHP -->
+						<h1>Adding a new machine: </h1>
+						
+						
+						<input type="number" name="cust_id" placeholder="Customer ID" value="<?php echo $_POST['customer_id']; ?>" required> <!-- Champ pour l'ID du client associé -->
+						<input type="text" name="machine_id" placeholder="Serial Number" required>
+						<select name="type" required>
+							<option value="">Select Type</option>
+							<option value="B&W">Black & White</option>
+							<option value="color">Color</option>
+						</select>
+						<input type="text" name="localisation" placeholder="Localization" required>
+						<input type="number" name="compteur" placeholder="Counter" required>
+						
+						<input type="submit" name="submit" value="ADD NEW MACHINE">
+					</form>
 				</div> 
 				<!-- END OF CUSTOMERS LIST-->	
 		 </div> 
@@ -73,9 +80,7 @@
 		<!-- SCRIPT FOR THE MENU -->
 		<script src="js/menu.js"></script>
 		<!-- SCRIPT FOR THE customer -->
-		<script src="js/angular.min.customer.js"></script>
-		<script src="js/ui-bootstrap-tpls-0.10.0.min.customer.js"></script>
-		<script src="app/customer.js"></script> 
+		
 		
 	</body>
 	

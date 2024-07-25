@@ -55,7 +55,7 @@
 				<div class="full-widget" id="updateDiv" style="display:none;">
 					<form class="form-4" method="post" action="updateRepair.php">	
 						<p>Enter Repair's ID number:</p> <br>
-						<input type="number" name="record" placeholder="Enter ID number e.g. 1" min="1" maxlength="10" autofocus required>
+						<input type="number" name="rep_update" placeholder="Enter ID number e.g. 1" min="1" maxlength="10" autofocus required>
 						<input type="submit" name="go" value="Go to update >>">	
 					</form>
 					
@@ -63,8 +63,8 @@
 				<!--Delete box-->
 				<div class="full-widget" id="deleteDiv" style="display:none;">
 					<form class="form-4" method="post" action="delete/repairDelete.php">	
-						<p>Enter the Stock ID you want to delete: </p> <br>
-						<input type="number" name="rep_id" placeholder="Enter stock number e.g. 1" min="1" maxlength="10" required>
+						<p>Enter the Rep ID you want to delete: </p> <br>
+						<input type="number" name="rep_delete" placeholder="Enter stock number e.g. 1" min="1" maxlength="10" required>
 						<input type="submit" name="delete" value="Click to Delete" >	
 					</form>
 					

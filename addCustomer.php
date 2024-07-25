@@ -62,7 +62,7 @@
 						
 						<input type="text" name="nom_contact" placeholder="nom_contact" required>
 						
-						<input type="text" name="tel" placeholder="Telephone/Mobile" required>
+						<input type="number" name="tel" placeholder="Telephone/Mobile" required>
 						<input type="submit" name="submit" value="ADD NEW CUSTOMER">
 					</form>
 					

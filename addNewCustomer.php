@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 	$success = '';
 	$error =  '';
 	if (isset($_POST['submit'])) {
@@ -33,11 +37,15 @@
 			
 			if (!$valid) {
 				$error = "Could not connect to the database!";
+				
 			}
 			
 			if (mysqli_num_rows($valid) == 0 ) {
+				
 				$sql = "INSERT INTO customers (nom_entreprise, adresse, number_register, nom_contact, tel)
 				VALUES ('$nom_entreprise', '$adresse', '$number_register', '$nom_contact', '$tel');";
+				
+
 				$res = mysqli_query($conn, $sql);
 				
 				if (!$res) {

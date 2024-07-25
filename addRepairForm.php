@@ -1,16 +1,15 @@
 <?php
 	require_once('session.php');
 	require_once('update/functions.php');
-	//require_once('addNewRepair.php');
+	require_once('addNewRepair.php');
 	//require_once('update/repairForm.php');
 
-include 'dbconnect.php'; // Assurez-vous que ce fichier configure correctement la connexion à la base de données
-
+include 'dbconnect.php'; 
 if (isset($_POST['go'])) {
     // Récupérer l'ID de la machine depuis le formulaire
     $machine_id = mysqli_real_escape_string($conn, $_POST['record']);
 
-    // Préparer la requête SQL pour obtenir l'ID du client à partir de l'ID de la machine
+    
     $sql = "SELECT cust_id FROM machines WHERE machine_id = ?";
     $stmt = mysqli_prepare($conn, $sql);
 
@@ -85,7 +84,7 @@ if (isset($_POST['go'])) {
 				<div class="full-widget">		
 					
 					
-					<form class="form-4" action="addNewRepair.php" method="post">
+					<form class="form-4" action="" method="post">
 						<h1>Adding a new repair: </h1>
 						<span id="msg">
 							<?php 

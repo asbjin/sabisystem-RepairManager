@@ -1,8 +1,9 @@
 <?php
 	require_once('session.php');
+	require_once('update/repairUpdated.php');
 	require_once('update/functions.php');
 	
-	require_once('update/repairUpdated.php');
+	
 	
 ?>
 
@@ -55,26 +56,24 @@
 						?>
 					</span>
 					<form class="form-4" action="" method="post">
-					<label for="ud_cust_id">Customer ID:</label>
-					<input type="text" id="ud_cust_id" name="ud_cust_id" value="<?php echo $cust_id; ?>" readonly>
 					
-					<input type="hidden" name="ud_id" value="<?php echo $id; ?>" readonly>
-					<input type="hidden" name="ud_staff_id" value="<?php echo $staff_id; ?>" readonly>
+					<input type="hidden" name="ud_id" value="<?php echo $_POST['rep_update']; ?>" readonly>
+					
 					
 					<label for="ud_device">Device Type:</label>
 					<?php echo enumDropdown("repairs", "DeviceType", "ud_device"); ?>
 					
 					<label for="ud_brand">Brand:</label>
-					<input type="text" id="ud_brand" name="ud_brand" value="<?php echo $brand; ?>" required placeholder="Enter brand">
+					<input type="text" id="ud_brand" name="ud_brand" value="" required placeholder="Enter brand">
 					
 					<label for="ud_model">Model:</label>
-					<input type="text" id="ud_model" name="ud_model" value="<?php echo $model; ?>" required placeholder="Enter model">
+					<input type="text" id="ud_model" name="ud_model" value="" required placeholder="Enter model">
 					
 					<label for="ud_os">Operating System:</label>
 					<?php echo enumDropdown("repairs", "OS", "ud_os"); ?>
 					
 					<label for="ud_description">Description:</label>
-					<textarea id="ud_description" name="ud_description" rows="5" required placeholder="Enter description"><?php echo $description; ?></textarea>
+					<textarea id="ud_description" name="ud_description" rows="5" required placeholder="Enter description"></textarea>
 					
 					<label for="ud_status">Status:</label>
 					<?php echo enumDropdown("repairs", "Status", "ud_status"); ?>

@@ -1,5 +1,5 @@
 <?php
-// Connexion à la base de données
+
 $success = '';
 $error = '';
 
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssssii", $nom_entreprise, $ud_adresse, $ud_number_register, $ud_nom_contact, $ud_tel, $ud_id);
+        mysqli_stmt_bind_param($stmt, "ssssii", $ud_nom_entreprise, $ud_adresse, $ud_number_register, $ud_nom_contact, $ud_tel, $ud_id);
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {

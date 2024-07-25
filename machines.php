@@ -64,7 +64,7 @@
 				<div class="full-widget" id="deleteDiv" style="display:none;">
 					<form class="form-4" method="post" action="delete/machineDelete.php">	
 						<p>Enter the machine serial number you want to delete: </p> <br>
-						<input type="text" name="rep_id" placeholder="Enter Serial number e.g. MT042124" min="1" maxlength="10" required>
+						<input type="text" name="machine_id" placeholder="Enter Serial number e.g. MT042124" min="1" maxlength="10" required>
 						<input type="submit" name="delete" value="Click to Delete" >	
 					</form>
 					
