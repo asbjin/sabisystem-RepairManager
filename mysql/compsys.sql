@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2015 at 07:29 PM
+-- Generation Time: Jun 10, 2024 at 09:30 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -199,8 +199,12 @@ INSERT INTO `stock` (`stock_id`, `description`, `quantity`, `price`) VALUES
 
 CREATE TABLE IF NOT EXISTS `machines` (
   `machine_id` varchar(50) NOT NULL,
+  `marque` enum('Canon', 'Océ','autre') NOT NULL,
   `compteur` int(11) NOT NULL DEFAULT 0,
   `type` enum('B&W', 'color') NOT NULL,
+  `debit` enum('Haut volume', 'volume moyen','petit volume','presse impression') NOT NULL,
+  `contrat` enum('Oui', 'Non') NOT NULL,
+  `garantie` enum('Oui', 'Non') NOT NULL,
   `localisation` varchar(100) NOT NULL,
   `cust_id` int(11) NOT NULL
   

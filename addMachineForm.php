@@ -52,22 +52,43 @@
 						echo $error;
 					?>
 					</span>
-					<form class="form-4" action="" method="post"> <!-- Assurez-vous que l'action pointe vers le bon fichier PHP -->
-						<h1>Adding a new machine: </h1>
-						
-						
-						<input type="number" name="cust_id" placeholder="Customer ID" value="<?php echo $_POST['customer_id']; ?>" required> <!-- Champ pour l'ID du client associé -->
-						<input type="text" name="machine_id" placeholder="Serial Number" required>
-						<select name="type" required>
-							<option value="">Select Type</option>
-							<option value="B&W">Black & White</option>
-							<option value="color">Color</option>
-						</select>
-						<input type="text" name="localisation" placeholder="Localization" required>
-						<input type="number" name="compteur" placeholder="Counter" required>
-						
-						<input type="submit" name="submit" value="ADD NEW MACHINE">
-					</form>
+					<form class="form-4" action="" method="post">
+					<h1>Ajouter une nouvelle machine :</h1>
+					<input type="number" name="cust_id" placeholder="ID Client" value="<?php echo isset($_POST['customer_id']) ? $_POST['customer_id'] : ''; ?>" required>
+					<input type="text" name="machine_id" placeholder="Numéro de série" required>
+					<select name="marque" required>
+						<option value="">Sélectionner la marque</option>
+						<option value="Canon">Canon</option>
+						<option value="Océ">Océ</option>
+						<option value="autre">Autre</option>
+					</select>
+					<select name="type" required>
+						<option value="">Sélectionner le type</option>
+						<option value="B&W">Noir et Blanc</option>
+						<option value="color">Couleur</option>
+					</select>
+					<select name="debit" required>
+						<option value="">Sélectionner le débit</option>
+						<option value="Haut volume">Haut volume</option>
+						<option value="volume moyen">Volume moyen</option>
+						<option value="petit volume">Petit volume</option>
+						<option value="presse impression">Presse impression</option>
+					</select>
+					<select name="garantie" required>
+						<option value="">Sous garantie</option>
+						<option value="Oui">Oui</option>
+						<option value="Non">Non</option>
+					</select>
+					<select name="contrat" required>
+						<option value="">Sous contrat</option>
+						<option value="Oui">Oui</option>
+						<option value="Non">Non</option>
+					</select>
+					<input type="text" name="localisation" placeholder="Localisation" required>
+					<input type="number" name="compteur" placeholder="Compteur" required>
+					<input type="submit" name="submit" value="AJOUTER NOUVELLE MACHINE">
+				</form>
+
 				</div> 
 				<!-- END OF CUSTOMERS LIST-->	
 		 </div> 

@@ -1,51 +1,42 @@
 <?php
 
-
 $success = '';
 $error = '';
 if (isset($_POST['submit'])) {
-    // Définir les variables
     $machine_id = $_POST['machine_id'];
+    $marque = $_POST['marque'];
     $type = $_POST['type'];
+    $debit = $_POST['debit'];
     $localisation = $_POST['localisation'];
     $compteur = $_POST['compteur'];
     $cust_id = $_POST['cust_id'];
+    $contrat = $_POST['contrat'];
+    $garantie = $_POST['garantie'];
 
     include 'dbconnect.php';
-    // Pour protéger contre les injections SQL
-    $machine_id = mysqli_real_escape_string($conn, stripslashes($machine_id));
-    $type = mysqli_real_escape_string($conn, stripslashes($type));
-    $localisation = mysqli_real_escape_string($conn, stripslashes($localisation));
-    $compteur = mysqli_real_escape_string($conn, stripslashes($compteur));
-    $cust_id = mysqli_real_escape_string($conn, stripslashes($cust_id));
 
-    // Vérifier si le client existe
-    $query = "SELECT * FROM customers WHERE cust_id = '$cust_id'";
-    $valid = mysqli_query($conn, $query);
-    if (!$valid) {
-        $error = "Could not connect to the database!";
-    } else {
+    // Préparer la requête pour vérifier l'existence du client
+    $stmt = $conn->prepare("SELECT * FROM customers WHERE cust_id = ?");
+    $stmt->bind_param("i", $cust_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Préparer la requête pour insérer la machine
+        $stmt = $conn->prepare("INSERT INTO machines (machine_id, marque, compteur, type, debit, localisation, contrat, garantie, cust_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssisssssi", $machine_id, $marque, $compteur, $type, $debit, $localisation, $contrat, $garantie, $cust_id);
         
-        if (mysqli_num_rows($valid) > 0) {
-            // Le client existe, ajouter la machine
-            $sql = "INSERT INTO machines (machine_id, compteur, type, localisation, cust_id)
-                    VALUES ('$machine_id', '$compteur', '$type', '$localisation', '$cust_id')";
-            $res = mysqli_query($conn, $sql);
-
-            if (!$res) {
-                $error = "Error inserting the machine: " . mysqli_error($conn);
-            } else {
-                if (mysqli_affected_rows($conn) == 1) {
-                    $success = "Machine added successfully. Redirecting.....";
-                    header("refresh:3; url=machines.php");
-                } else {
-                    $error = "Could not add the machine due to a system error!";
-                }
-            }
+        if ($stmt->execute()) {
+            $success = "Machine ajoutée avec succès. Redirection en cours...";
+            header("refresh:3; url=machines.php");
         } else {
-            $error = "The customer does not exist in the system.";
+            $error = "Erreur lors de l'ajout de la machine : " . $stmt->error;
         }
+    } else {
+        $error = "Le client n'existe pas dans le système.";
     }
+
+    $stmt->close();
     mysqli_close($conn);
 }
 ?>

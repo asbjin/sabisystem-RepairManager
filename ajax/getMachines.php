@@ -1,7 +1,7 @@
 <?php
 include('../includes/config.php');
 $edit='';
-$query = "SELECT m.machine_id, m.compteur, m.type, m.localisation, m.cust_id FROM machines m ";
+$query = "SELECT m.machine_id, m.compteur, m.marque, m.debit, m.type, m.garantie, m.contrat, m.localisation, m.cust_id FROM machines m ";
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
 $arr = array();
