@@ -31,7 +31,7 @@
 	</head>
 	
 	<body id="top" style="font-size: 62.5%;">
-		<?php
+		//<?php
 		include_once('includes/header.php');
 		?>
 			

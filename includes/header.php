@@ -48,10 +48,10 @@
 		<!-- END Header -->
 		
 		
-		<div class="main clearfix">
+		<div class=" clearfix">
 			
 			<!-- START OF NAVIGATION -->
-			<nav id="menu" class="nav">					
+			<nav id="menu" class="nav" style="display: flex; flex-direction: column; justify-content: center;">			
 				<ul>
 					<li>
 						<a href="dashboard.php">

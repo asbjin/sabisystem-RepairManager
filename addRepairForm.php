@@ -26,7 +26,9 @@ if (isset($_POST['go'])) {
             $cust_id = $row['cust_id'];
 			
         } else {
-			header("Location: addRepair.php");
+		
+			header("location:addMachine.php?numeroserie=$machine_id");
+			
         }
 
         // Fermer le statement
@@ -84,24 +86,51 @@ if (isset($_POST['go'])) {
 				<div class="full-widget">		
 					
 					
-					<form class="form-4" action="" method="post">
-						<h1>Adding a new repair: </h1>
-						<span id="msg">
-							<?php 
-								echo $success; 
-								echo $notFound;
-							?>
-						</span>
-						
-						Customer ID: <input type="text" name="cust_id" placeholder=" ID"  value="<?php echo htmlspecialchars($cust_id); ?>" readonly>
-						<input type="hidden" name="staff_id" value="<?php echo $login_id; ?>" readonly>
-						<?php echo enumDropdown("repairs", "DeviceType", "device"); ?>
-						<input type="text" name="brand" placeholder="Brand" required>
-						<input type="text" name="model" placeholder="Model" required>
-						<?php echo enumDropdown("repairs", "OS", "os"); ?>
-						<textarea rows="5" name="description" placeholder="Description" required></textarea>
-						<input type="submit" name="submit" value="ADD NEW REPAIR">
-					</form>
+				<form class="form-4" action="" method="post">
+					<h1>Adding a new repair: </h1>
+					<span id="msg">
+						<?php
+						echo $success;
+						echo $notFound;
+						?>
+					</span>
+					
+					Customer ID: <input type="text" name="cust_id" placeholder="Customer ID" value="<?php echo htmlspecialchars($cust_id); ?>" readonly>
+					<input type="hidden" name="staff_id" value="<?php echo $login_id; ?>" readonly>
+					
+					Contract: 
+					<select name="contrat">
+						<option value="Oui">Oui</option>
+						<option value="Non">Non</option>
+					</select>
+					
+					A facturer: 
+					<select name="facturer">
+						<option value="Oui">Oui</option>
+						<option value="Non">Non</option>
+					</select>
+
+					<textarea rows="5" name="description_P" placeholder="Problem Description" required></textarea>
+					<textarea rows="5" name="description_R" placeholder="Repair Description" required></textarea>
+
+					<textarea rows="5" name="changed_pieces" placeholder="Changed Pieces"></textarea>
+					<textarea rows="5" name="recommended_pieces" placeholder="Recommended Pieces"></textarea>
+
+					Status: 
+					<select name="status">
+						<option value="New">New</option>
+						<option value="In Progress">In Progress</option>
+						<option value="Resolved">Resolved</option>
+						<option value="Waiting for Parts">Waiting for Parts</option>
+						<option value="Waiting for Customer">Waiting for Customer</option>
+						<option value="Validated">Validated</option>
+						<option value="Invoiced">Invoiced</option>
+						<option value="Estimate Assigned">Estimate Assigned</option>
+					</select>
+
+					<input type="submit" name="submit" value="ADD NEW REPAIR">
+				</form>
+
 					
 				</div>
 				

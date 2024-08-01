@@ -71,90 +71,13 @@
 				</div>
 			
 				
-				<div class=" full-widget">
-					<div ng-controller="repairsCrtl">
-						
-						<div class="row">
-							<div class="col-md-2">PageSize:
-								<select ng-model="entryLimit" class="form-control">
-									<option>5</option>
-									<option>10</option>
-									<option>20</option>
-									<option>50</option>
-									<option>100</option>
-								</select>
-							</div>
-							<div class="col-md-3">Filter:
-								<input type="text" ng-model="search" ng-change="filter()" placeholder="Filter" class="form-control" />
-							</div>
-							<div class="col-md-4">
-								<br><br><p>Filtered {{ filtered.length }} of {{ totalItems}} total repairs</p>
-							</div>
-						</div>
-						<br/>
-						<div class="row">
-							<div class="col-md-12" ng-show="filteredItems > 0">
-								<table class="table table-striped table-bordered">
-								<thead>
+		<div class="full-widget">
+				<?php
+				include_once('list/rep.php');
+				?>
+		</div> 
+		<!-- END OF FULL WIDGET-->
 
-								<th>ID&nbsp;<a ng-click="sort_by('rep_id');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Nom entreprise&nbsp;<a ng-click="sort_by('nom_entreprise');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Nom Staff&nbsp;<a ng-click="sort_by('nom_staff');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Prénom Staff&nbsp;<a ng-click="sort_by('prenom_staff');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Description&nbsp;<a ng-click="sort_by('description');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Model&nbsp;<a ng-click="sort_by('model');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Date Added&nbsp;<a ng-click="sort_by('repairdate');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Update Date&nbsp;<a ng-click="sort_by('collectiondate');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								<th>Status&nbsp;<a ng-click="sort_by('status');"><i class="glyphicon glyphicon-sort"></i></a></th>
-								</thead>
-
-								<tbody>
-								<tr ng-repeat="data in filtered = (list | filter:search | orderBy:predicate:reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-									
-									<td>{{data.rep_id}}</td>
-									<td>{{data.nom_entreprise}}</td>
-									
-									<td>{{data.nom_staff}}</td>
-									<td>{{data.prenom_staff}}</td>
-									<td>{{data.description}}</td>
-									<td>{{data.model}}</td>
-									<td>{{data.repairdate}}</td>
-									<td>{{data.collectiondate}}</td>
-									<td>{{data.status}}</td>
-								</tr>
-								</tbody>
-								</table>
-							</div>
-							<div class="col-md-12" ng-show="filteredItems == 0">
-								<div class="col-md-12">
-									<h4>No repairs found</h4>
-								</div>
-							</div>
-							<div class="col-md-12" ng-show="filteredItems > 0">    
-								<div pagination="" page="currentPage" on-select-page="setPage(page)" boundary-links="true" total-items="filteredItems" items-per-page="entryLimit" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
-								
-							</div>
-						</div>
-						<span id="msg">
-							<?php
-							if (isset($_GET['success'])) {
-								echo "<p style='color: green;'>" . htmlspecialchars($_GET['success']) . "</p>";
-							}
-							if (isset($_GET['error'])) {
-								echo "<p style='color: red;'>" . htmlspecialchars($_GET['error']) . "</p>";
-							}
-						?>
-						</span>
-					</div> 
-					<!-- END OF RepairS LIST-->	
-				</div> 
-				<!-- END OF FULL WIDGET-->
-				
-			</div> 
-			<!-- END OF FLOATS-->
-		</div>
-		<!-- END OF MAIN-->
-		
 		<!-- SCRIPT FOR THE MENU -->
 		<script src="js/menu.js"></script>
 		<!-- SCRIPT FOR THE MENU -->

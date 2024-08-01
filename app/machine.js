@@ -35,29 +35,43 @@ app.controller('machineCtrl', function ($scope, $http, $timeout) {
         
         $scope.exportData = function() {
             console.log('Exportation en cours...');
-        
+        alert('Exportation en cours...');
         window.location.href = '/RepairShop-master/import_export/export.php';
         };
         
         
         $scope.importData = function() {
-            var fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = '.csv';
-            fileInput.onchange = function(event) {
-                var file = event.target.files[0];
-                var formData = new FormData();
-                formData.append('file', file);
-
-                $http.post('import_export/import.php', formData, {
-                    headers: {'Content-Type': undefined}
-                }).then(function(response) {
-                    alert(response.data);
-                }, function(error) {
-                    alert('Erreur lors de l\'importation des données.');
-                });
+            console.log('Importation en cours...');
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+    
+            if (!file) {
+                console.error('Aucun fichier sélectionné');
+                return;
+            }
+    
+            if (!file.name.endsWith('.csv')) {
+                console.error('Le fichier n\'est pas un fichier CSV.');
+                return;
+            }
+    
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var csvData = e.target.result;
+    
+                console.log('Données CSV lues:', csvData.substring(0, 100)); // Log first 100 chars for debugging
+    
+                $http.post('RepairShop-master/import_export/import.php', { csv: csvData })
+                    .then(function(response) {
+                        console.log('Importation réussie:', response.data);
+                    }, function(error) {
+                        console.error('Erreur lors de l\'importation:', error);
+                    });
             };
-            fileInput.click();
+            reader.onerror = function(err) {
+                console.error('Erreur de lecture du fichier:', err);
+            };
+            reader.readAsText(file);
         };
     });
 });

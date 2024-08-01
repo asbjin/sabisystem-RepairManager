@@ -99,46 +99,27 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 CREATE TABLE IF NOT EXISTS `repairs` (
-`Rep_ID` int(11) NOT NULL,
-  `Cust_ID` int(11) ,
-  `Staff_ID` int(11) NOT NULL,
-  `Description` varchar(1000) NOT NULL,
-  `DeviceType` enum('Laptop','Desktop','Printer','Other') NOT NULL,
-  `Brand` varchar(30) NOT NULL,
-  `Model` varchar(30) NOT NULL,
-  `OS` enum('Windows 7','Windows 8','Windows Vista','Windows Older','MacOS','Linux','Other') NOT NULL,
-  `RepairDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `CollectionDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `Status` enum('New','In Progress','Resolved','Waiting for Parts','Waiting for Customer','Validated','Invoiced','Estimate Assigned') NOT NULL DEFAULT 'New'
+  `rep_id` int(11) NOT NULL,
+  `cust_id` int(11) ,
+  `staff_id` int(11) NOT NULL,
+  `contrat` enum('Oui','Non') NOT NULL,
+  `facturer` enum('Oui','Non') NOT NULL,
+  `description_P` varchar(1000) NOT NULL,
+  `description_R` varchar(1000) NOT NULL,
+  `changed_pieces` TEXT DEFAULT NULL,
+  `recommended_pieces` TEXT DEFAULT NULL,
+  `repairDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `collectionDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `status` enum('New','In Progress','Resolved','Waiting for Parts','Waiting for Customer','Validated','Invoiced','Estimate Assigned') NOT NULL DEFAULT 'New'
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `repairs`
 --
 
-INSERT INTO `repairs` (`Rep_ID`, `Cust_ID`, `Staff_ID`, `Description`, `DeviceType`, `Brand`, `Model`, `OS`, `RepairDate`, `CollectionDate`, `Status`) VALUES
-(1, 10, 2, 'Paper stuck', 'Printer', 'HP', 'Inkjet', 'Other', '2015-01-01 19:34:24', '2015-01-12 18:21:00', 'New'),
-(2, 1, 1, 'Motherboard Problem', 'Laptop', 'Alienware', 'M15x', 'Windows 7', '2014-12-16 20:45:52', '2014-12-25 17:29:18', 'Waiting for Customer'),
-(3, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:24', NULL, 'New'),
-(4, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:26', NULL, 'In Progress'),
-(5, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:26', NULL, 'Resolved'),
-(6, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:26', NULL, 'Waiting for Parts'),
-(7, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:27', NULL, 'Invoiced'),
-(8, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:27', NULL, 'Estimate Assigned'),
-(9, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:27', NULL, 'Validated'),
-(10, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:27', NULL, 'In Progress'),
-(11, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:27', NULL, 'New'),
-(12, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:28', NULL, 'Resolved'),
-(13, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:28', NULL, 'Resolved'),
-(14, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:28', NULL, 'Resolved'),
-(15, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:28', NULL, 'New'),
-(16, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:28', NULL, 'New'),
-(17, 1, 1, 'Virus Removal', 'Laptop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:28', NULL, 'New'),
-(18, 1, 1, 'Virus Removal', 'Desktop', 'Dell', 'D360', 'Windows 7', '2014-12-16 20:46:29', '2014-12-25 19:40:08', 'New'),
-(19, 1, 1, 'Office Installation\r\nPrinter driver\r\nAnti-virus Installation', 'Laptop', 'Lenovo', 'ThinkCentre Edge E73', 'Windows 7', '2014-12-16 20:46:29', '2014-12-25 17:22:04', 'New'),
-(20, 1, 1, 'Software Installation', 'Laptop', 'Apple', 'Macbook Pro', 'Windows 7', '2014-12-16 22:01:07', '2014-12-25 17:09:10', 'New'),
-(21, 2, 1, 'BSOD', 'Laptop', 'Lenovo', 'ThinkPad Edge E545', 'Windows 8', '2014-12-25 19:29:02', NULL, 'New'),
-(22, 3, 1, 'Hinges Broke', 'Laptop', 'Toshiba', 'Satellite Pro R50-B-', 'Linux', '2014-12-25 19:34:24', NULL, 'New');
+INSERT INTO `repairs` (`rep_id`,`cust_id`, `staff_id`, `contrat`, `facturer`, `description_P`, `description_R`, `changed_pieces`, `recommended_pieces`, `status`) VALUES
+ (1,2, 1, 'Oui', 'Oui', 'Machine ne démarre pas', 'Problème carte mère remplacée', '[{"codepiece": "P123", "quantity": 1}, {"codepiece": "P457", "quantity": 2}]', '[{"codepiece": "P456", "quantity": 1}]', 'Resolved'),
+  (2,3, 1, 'Non', 'Oui', 'Mauvaise qualité impression', 'Nettoyage têtes impression', '[{"codepiece": "P456", "quantity": 1}, {"codepiece": "P789", "quantity": 3}]', '[{"codepiece": "P123", "quantity": 1}]', 'In Progress');
 
 -- --------------------------------------------------------
 
@@ -217,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `machines` (
 --
 DROP TABLE IF EXISTS `monthlyrepairs`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `monthlyrepairs` AS select `repairs`.`Status` AS `status`,count(`repairs`.`Status`) AS `total` from `repairs` where (month(`repairs`.`RepairDate`) = extract(month from now())) group by `repairs`.`Status` order by `repairs`.`RepairDate` desc;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `monthlyrepairs` AS select `repairs`.`status` AS `status`,count(`repairs`.`status`) AS `total` from `repairs` where (month(`repairs`.`repairDate`) = extract(month from now())) group by `repairs`.`status` order by `repairs`.`repairDate` desc;
 
 --
 -- Indexes for dumped tables
@@ -245,7 +226,7 @@ ALTER TABLE `orders`
 -- Indexes for table `repairs`
 --
 ALTER TABLE `repairs`
- ADD PRIMARY KEY (`Rep_ID`,`Cust_ID`,`Staff_ID`), ADD KEY `fk_Repairs_Cust` (`Cust_ID`), ADD KEY `fk_Repairs_Staff` (`Staff_ID`);
+ ADD PRIMARY KEY (`rep_id`,`cust_id`,`staff_id`), ADD KEY `fk_Repairs_Cust` (`cust_id`), ADD KEY `fk_Repairs_Staff` (`staff_id`);
 
 --
 -- Indexes for table `staff`
@@ -287,7 +268,7 @@ MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `repairs`
 --
 ALTER TABLE `repairs`
-MODIFY `Rep_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+MODIFY `rep_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `staff`
 --
@@ -309,8 +290,8 @@ ALTER TABLE `repairs`
 -- Constraints for table `repairs`
 --
 ALTER TABLE `repairs`
-ADD CONSTRAINT `fk_Repairs_Cust` FOREIGN KEY (`Cust_ID`) REFERENCES `customers` (`cust_id`),
-ADD CONSTRAINT `fk_Repairs_Staff` FOREIGN KEY (`Staff_ID`) REFERENCES `staff` (`staff_id`);
+ADD CONSTRAINT `fk_Repairs_Cust` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`cust_id`),
+ADD CONSTRAINT `fk_Repairs_Staff` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
 --
 -- Constraints for table `machines`
 --

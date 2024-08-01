@@ -47,12 +47,10 @@
 			<div class="floats">
 			
 				<div class=" full-widget">
-				<?php
-				include_once('list/machine.php');
-				?>
+				
 							<div>
 								<form class="form-4" method="post" action="addRepairForm.php">	
-									<p>Enter machine's ID to Proceed with Repair:</p> <br>
+									<p>Enter le Numero de serie pour proceder a la reparation:</p> <br>
 									<input type="text" name="record" placeholder="Enter ID number e.g. 1" min="1" maxlength="10" required>
 									<input type="submit" name="go" value="Go to repair form >>">	
 								</form>
