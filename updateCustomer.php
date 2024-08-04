@@ -1,6 +1,6 @@
 <?php
 	require_once('session.php');
-	//require_once('update/customerForm.php');
+	require_once('update/customerForm.php');
 	require_once('update/customerUpdated.php');	
 	
 ?>
@@ -14,7 +14,7 @@
 		<meta charset="utf-8">
 		<meta name="description" content="Lakeside Books">
 		<meta name="keywords" content="books, lakeside, cork, shop, online">
-		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<link rel="shortcut icon" href="favicon.ico"> 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/global.css">
@@ -53,15 +53,15 @@
 							echo $error;
 						?>
 					</span>
-					<form class="form-4" action="" method="post">
-					Customer ID: <input type="number" name="ud_id" id="ud_id" value="<?php echo $_POST['record']; ?>" readonly>
-					Nom Entreprise: <input type="text" name="ud_nom_entreprise" id="ud_nom_entreprise"><br />
-					Adresse Entreprise: <input type="text" name="ud_adresse" id="ud_adresse"><br />
-					Numero registre commerce: <input type="text" name="ud_number_register" id="ud_number_register"><br />
-					Nom contact: <input type="text" name="ud_nom_contact" id="ud_nom_contact"><br />
-					Telephone du contact: <input type="number" name="ud_tel" id="ud_tel"><br />
-					<input type="submit" name="submit" value="Update Customer Details">
-					</form>
+					<form class="form-4" action="updateCustomer.php" method="post">
+                Customer ID: <input type="number" name="ud_id" id="ud_id" value="<?php echo isset($_POST['record']) ? $_POST['record'] : ''; ?>" readonly><br />
+                Nom Entreprise: <input type="text" name="ud_nom_entreprise" id="ud_nom_entreprise" value="<?php echo isset($nom_entreprise) ? $nom_entreprise : ''; ?>"><br />
+                Adresse Entreprise: <input type="text" name="ud_adresse" id="ud_adresse" value="<?php echo isset($adresse) ? $adresse : ''; ?>"><br />
+                Numero registre commerce: <input type="text" name="ud_number_register" id="ud_number_register" value="<?php echo isset($number_register) ? $number_register : ''; ?>"><br />
+                Nom contact: <input type="text" name="ud_nom_contact" id="ud_nom_contact" value="<?php echo isset($nom_contact) ? $nom_contact : ''; ?>"><br />
+                Telephone du contact: <input type="number" name="ud_tel" id="ud_tel" value="<?php echo isset($tel) ? $tel : ''; ?>"><br />
+                <input type="submit" name="submit" value="Update Customer Details">
+            </form>
 
 				</div>
 				

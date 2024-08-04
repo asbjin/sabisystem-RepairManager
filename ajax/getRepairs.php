@@ -5,7 +5,8 @@
         r.rep_ID AS rep_id,
         c.nom_entreprise AS nom_entreprise, 
         s.surname AS nom_staff, 
-        s.forename AS prenom_staff, 
+        r.machine_id AS numero_serie,
+        m.compteur AS compteur,
         r.contrat AS contrat,
         r.facturer AS facture,
         r.description_P AS description_P,
@@ -13,14 +14,18 @@
         r.changed_pieces AS changed_pieces,
         r.recommended_pieces AS recommended_pieces,
         r.repairDate AS repairdate, 
-        r.collectionDate AS collectiondate, 
-        r.status AS status
+        r.collectionDate AS collectiondate
+       
+
     FROM 
         repairs r
     JOIN 
         staff s ON r.Staff_ID = s.staff_id
     JOIN 
-        customers c ON r.Cust_ID = c.cust_id
+        customers c ON r.Cust_ID = c.cust_id 
+    JOIN 
+        machines m ON r.machine_id = m.machine_id 
+    
     WHERE 
         r.Status != 'Invoiced'
     ORDER BY 

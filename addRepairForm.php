@@ -24,7 +24,7 @@ if (isset($_POST['go'])) {
         // Vérifier si un résultat a été trouvé
         if ($row = mysqli_fetch_assoc($result)) {
             $cust_id = $row['cust_id'];
-			
+			$compteur =$row['compteur'];
         } else {
 		
 			header("location:addMachine.php?numeroserie=$machine_id");
@@ -58,6 +58,7 @@ if (isset($_POST['go'])) {
 		
 		<link rel="stylesheet" href="css/menu.css" />
 		<script src="js/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		
 		<style>@import url(http://fonts.googleapis.com/css?family=Raleway:400,700); </style>
 		
@@ -87,7 +88,7 @@ if (isset($_POST['go'])) {
 					
 					
 				<form class="form-4" action="" method="post">
-					<h1>Adding a new repair: </h1>
+					<h1>Add repair:</h1>
 					<span id="msg">
 						<?php
 						echo $success;
@@ -95,28 +96,32 @@ if (isset($_POST['go'])) {
 						?>
 					</span>
 					
+					<input type="hidden" name="rep_id" value="<?php echo htmlspecialchars($_POST['rep_update']); ?>" readonly>
+
 					Customer ID: <input type="text" name="cust_id" placeholder="Customer ID" value="<?php echo htmlspecialchars($cust_id); ?>" readonly>
-					<input type="hidden" name="staff_id" value="<?php echo $login_id; ?>" readonly>
-					
-					Contract: 
+					<input type="hidden" name="staff_id" value="<?php echo htmlspecialchars($login_id); ?>" readonly>
+
+					Machine ID: <input type="text" name="machine_id" placeholder="Machine ID" value="<?php echo htmlspecialchars($machine_id); ?>" required>
+					Compteur: <input type="number" name="compteur" placeholder="Compteur" value="<?php echo htmlspecialchars($compteur); ?>" required>
+					Contract:
 					<select name="contrat">
 						<option value="Oui">Oui</option>
 						<option value="Non">Non</option>
 					</select>
-					
-					A facturer: 
+
+					A facturer:
 					<select name="facturer">
 						<option value="Oui">Oui</option>
 						<option value="Non">Non</option>
 					</select>
 
-					<textarea rows="5" name="description_P" placeholder="Problem Description" required></textarea>
-					<textarea rows="5" name="description_R" placeholder="Repair Description" required></textarea>
+					<textarea rows="5" name="description_P" placeholder="Problem Description" required><?php echo htmlspecialchars($description_P); ?></textarea>
+					<textarea rows="5" name="description_R" placeholder="Repair Description" required><?php echo htmlspecialchars($description_R); ?></textarea>
 
-					<textarea rows="5" name="changed_pieces" placeholder="Changed Pieces"></textarea>
-					<textarea rows="5" name="recommended_pieces" placeholder="Recommended Pieces"></textarea>
+					<textarea rows="5" name="changed_pieces" placeholder="Changed Pieces"><?php echo htmlspecialchars($changed_pieces); ?></textarea>
+					<textarea rows="5" name="recommended_pieces" placeholder="Recommended Pieces"><?php echo htmlspecialchars($recommended_pieces); ?></textarea>
 
-					Status: 
+					Status:
 					<select name="status">
 						<option value="New">New</option>
 						<option value="In Progress">In Progress</option>
@@ -128,8 +133,11 @@ if (isset($_POST['go'])) {
 						<option value="Estimate Assigned">Estimate Assigned</option>
 					</select>
 
-					<input type="submit" name="submit" value="ADD NEW REPAIR">
+					
+
+					<input type="submit" name="submit" value="Update Repair Details">
 				</form>
+
 
 					
 				</div>

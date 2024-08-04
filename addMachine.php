@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/menu.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="js/modernizr.custom.js"></script>
     <style>@import url(http://fonts.googleapis.com/css?family=Raleway:400,700); </style>
 </head>

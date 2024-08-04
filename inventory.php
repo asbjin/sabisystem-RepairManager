@@ -1,6 +1,5 @@
 <?php
 	require_once('session.php');
-	require_once('delete/inventoryDelete.php');
 ?>
 
 <!DOCTYPE html>
@@ -10,13 +9,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 		<meta charset="utf-8">
-		<meta name="description" content="Lakeside Books">
-		<meta name="keywords" content="books, lakeside, cork, shop, online">
+		
 		
 		<link rel="shortcut icon" href="favicon.ico"> 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/global.css">
-		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<link rel="stylesheet" href="css/menu.css" />
 		<script src="js/modernizr.custom.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +40,7 @@
 				<div class="submenu">
 					<ul>
 						<li value="Update Inventory" onclick="showUpdate()">Update Inventory</li>
-						<li id="add"><a href="addInventory.php">Add New Item</a></li>
+						<li id="add"><a href="">Add New Item</a></li>
 						<li id="del" value="Delete Inventory" onclick="showDelete()">Delete Inventory Item</li>
 					</ul>
 				</div>
@@ -115,7 +113,7 @@
 				
 				<div class="full-widget" id="updateDiv" style="display:none;">
 					
-					<form class="form-4" method="post" action="updateInventory.php">	
+					<form class="form-4" method="post" action="">	
 						<p>Enter ID number:</p> <br>
 						<input type="number" name="record" placeholder="Enter stock number e.g. 1" min="1" maxlength="10" required>
 						<input type="submit" name="go" value="Go to update >>">	
@@ -124,7 +122,7 @@
 				</div>
 				
 				<div class="full-widget" id="deleteDiv" style="display:none;">
-					<form class="form-4" method="post" action="inventory.php">	
+					<form class="form-4" method="post" action="">	
 						<p>Enter the Stock ID you want to delete: </p> <br>
 						<input type="number" name="stock_id" placeholder="Enter stock number e.g. 1" min="1" maxlength="10" required>
 						<input type="submit" name="delete" value="Click to Delete" >	

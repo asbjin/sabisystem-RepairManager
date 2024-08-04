@@ -17,11 +17,13 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/menu.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <style>@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');</style>
+	
 </head>
 <body id="top" style="font-size: 62.5%;">
     <?php include_once('includes/header.php'); ?>
@@ -30,7 +32,7 @@
     <div class="bread dash"><h3>Home</h3></div>
     <!-- Breadcrumb -->
 
-    <div class="container mt-4">
+    <div class=" mt-4">
         <div class="row">
             <!-- Easy access links -->
             <div class="col-md-4 mb-4 ">
@@ -55,6 +57,7 @@
                                     <i aria-hidden="true" class="icon-plus"></i> New Machine
                                 </a>
                             </li>
+                            <!-- 
                             <li>
                                 <a href="chooseProducts.php" class="btn btn-primary btn-block mb-2">
                                     <i aria-hidden="true" class="icon-plus"></i> New Estimate
@@ -65,6 +68,8 @@
                                     <i aria-hidden="true" class="icon-plus"></i> New Stock Item
                                 </a>
                             </li>
+                            -->
+                            
                         </ul>
                     </div>
                 </div>

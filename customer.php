@@ -1,9 +1,6 @@
 <?php
 	require('session.php');
-	error_reporting(E_ALL); // Signale toutes les erreurs PHP
-ini_set('display_errors', 1); // Affiche les erreurs à l'écran
-ini_set('display_startup_errors', 1); // Affiche les erreurs survenues lors du démarrage de PHP
-
+	
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +20,7 @@ ini_set('display_startup_errors', 1); // Affiche les erreurs survenues lors du d
 		<link rel="stylesheet" href="css/menu.css" />
 		<script src="js/modernizr.custom.js" ></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<style type="text/css">
 			ul>li, a{cursor: pointer;}
 		</style>
@@ -59,20 +57,22 @@ ini_set('display_startup_errors', 1); // Affiche les erreurs survenues lors du d
 			
 			<!--Update box-->
 			<div class="floats">
-
-				<div class="full-widget" id="updateDiv" style="display:none;">
-					<form class="form-4" method="post" action="updateCustomer.php">	
+				
+			<div class="full-widget" id="updateDiv" style="display:none;">
+				<div id="errorMessage" class="error-message"></div>
+					<form class="form-4" method="post" id="updateForm"  action="updateCustomer.php?update">	
 						<p>Enter Customer's ID number you want to Update:</p> <br>
-						<input type="number" name="record" placeholder="Enter ID number e.g. 1" min="1" maxlength="10" autofocus required>
+						<input type="number" id="cust_up" name="record" placeholder="Enter ID number e.g. 1" min="1" maxlength="10" autofocus required>
 						<input type="submit" name="go" value="Go to update >>">	
 					</form>
 					
 				</div>
 				<!--Delete box-->
 				<div class="full-widget" id="deleteDiv" style="display:none;">
-					<form class="form-4" method="post" action="delete/customerDelete.php">	
+					<div id="errorMessage" class="error-message"></div>
+					<form class="form-4" method="post" id="deleteForm" action="delete/customerDelete.php?delete">	
 						<p>Enter Customer's ID you want to delete: </p> <br>
-						<input type="number" name="cust_id" placeholder="Enter stock number e.g. 1" min="1" maxlength="10" required>
+						<input type="number" id="cust_del" name="cust_id" placeholder="Enter stock number e.g. 1" min="1" maxlength="10" required>
 						<input type="submit" name="delete" value="Click to Delete" >	
 					</form>
 					
@@ -112,6 +112,38 @@ ini_set('display_startup_errors', 1); // Affiche les erreurs survenues lors du d
 				document.getElementById('updateDiv').style.display = "none";
 			}
 			</script>
+			
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Prevent form submission and check customer existence
+    $('#updateForm, #deleteForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        var formId = $(this).attr('id');
+        var customerId = formId === 'updateForm' ? $('#cust_up').val() : $('#cust_del').val();
+        var actionUrl = $(this).attr('action');
+        
+        $.ajax({
+            type: 'POST',
+            url: 'checkcust.php',
+            data: { customer_id: customerId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.exists) {
+                    $('#' + formId).unbind('submit').submit(); // Submit the form if customer exists
+                } else {
+                    $('#errorMessage').text('Customer ID does not exist. Please try again.');
+                }
+            },
+            error: function() {
+                $('#errorMessage').text('An error occurred while checking the customer ID. Please try again.');
+            }
+        });
+    });
+});
+</script>
+						
 		
 	</body>
 	

@@ -1,22 +1,22 @@
 <?php
-require_once 'config.php'; // Include the config file
+if (isset($_GET['update'])) {
+   
+    include '../dbconnect.php'; // Adjust the path according to your directory structure
 
-if (isset($_POST['record']) and is_numeric($_POST['record'])) {
-    $cid = $_POST['record'];
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        exit();
+    }
 
-    // Use the $mysqli object from the config file
-    $sql = "SELECT * FROM customers WHERE cust_id=?"; // Use a prepared statement to prevent SQL injection
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("i", $cid); // Bind the $cid variable to the prepared statement
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $id = $_POST['record'];
+    $sql = "SELECT * FROM customers WHERE cust_id = $id";
+    $res = mysqli_query($conn, $sql);
 
-    if (!$result) {
-        echo('Query failed ' . $sql . ' Error:' . $mysqli->error);
+    if (!$res) {
+        echo 'Query failed: ' . $sql . ' Error: ' . mysqli_error($conn);
         exit();
     } else {
-        $row = $result->fetch_assoc(); // Use fetch_assoc to retrieve the row as an associative array
-        $id = $row['cust_id'];
+        $row = mysqli_fetch_array($res);
         $nom_entreprise = $row['nom_entreprise'];
         $adresse = $row['adresse'];
         $number_register = $row['number_register'];
@@ -24,7 +24,7 @@ if (isset($_POST['record']) and is_numeric($_POST['record'])) {
         $tel = $row['tel'];
     }
 
-    // Close the statement and connection
-    $stmt->close();
-    $mysqli->close();
-}
+    mysqli_free_result($res);
+    mysqli_close($conn);
+} 
+?>

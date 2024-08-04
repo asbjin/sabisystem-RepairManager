@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `repairs` (
   `rep_id` int(11) NOT NULL,
   `cust_id` int(11) ,
   `staff_id` int(11) NOT NULL,
+  `machine_id` varchar(50) NOT NULL,
   `contrat` enum('Oui','Non') NOT NULL,
   `facturer` enum('Oui','Non') NOT NULL,
   `description_P` varchar(1000) NOT NULL,
@@ -110,16 +111,10 @@ CREATE TABLE IF NOT EXISTS `repairs` (
   `recommended_pieces` TEXT DEFAULT NULL,
   `repairDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `collectionDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `status` enum('New','In Progress','Resolved','Waiting for Parts','Waiting for Customer','Validated','Invoiced','Estimate Assigned') NOT NULL DEFAULT 'New'
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+  `Status` enum('New','In Progress','Resolved','Waiting for Parts','Waiting for Customer','Validated','Invoiced','Estimate Assigned') NOT NULL DEFAULT 'New'
+  
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `repairs`
---
-
-INSERT INTO `repairs` (`rep_id`,`cust_id`, `staff_id`, `contrat`, `facturer`, `description_P`, `description_R`, `changed_pieces`, `recommended_pieces`, `status`) VALUES
- (1,2, 1, 'Oui', 'Oui', 'Machine ne démarre pas', 'Problème carte mère remplacée', '[{"codepiece": "P123", "quantity": 1}, {"codepiece": "P457", "quantity": 2}]', '[{"codepiece": "P456", "quantity": 1}]', 'Resolved'),
-  (2,3, 1, 'Non', 'Oui', 'Mauvaise qualité impression', 'Nettoyage têtes impression', '[{"codepiece": "P456", "quantity": 1}, {"codepiece": "P789", "quantity": 3}]', '[{"codepiece": "P123", "quantity": 1}]', 'In Progress');
 
 -- --------------------------------------------------------
 
@@ -187,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `machines` (
   `contrat` enum('Oui', 'Non') NOT NULL,
   `garantie` enum('Oui', 'Non') NOT NULL,
   `localisation` varchar(100) NOT NULL,
-  `cust_id` int(11) NOT NULL
+  `cust_id` int(11) 
   
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
@@ -291,8 +286,9 @@ ALTER TABLE `repairs`
 --
 ALTER TABLE `repairs`
 ADD CONSTRAINT `fk_Repairs_Cust` FOREIGN KEY (`cust_id`) REFERENCES `customers` (`cust_id`),
-ADD CONSTRAINT `fk_Repairs_Staff` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
---
+ADD CONSTRAINT `fk_Repairs_Staff` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`),
+ADD CONSTRAINT `fk_Repairs_machine` FOREIGN KEY (`machine_id`) REFERENCES `machines` (`machine_id`) ON DELETE CASCADE;
+
 -- Constraints for table `machines`
 --
 

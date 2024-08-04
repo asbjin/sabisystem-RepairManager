@@ -28,7 +28,8 @@
                                         <th>ID&nbsp;<a ng-click="sort_by('rep_id');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <th>Nom entreprise&nbsp;<a ng-click="sort_by('nom_entreprise');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <th>Nom Staff&nbsp;<a ng-click="sort_by('nom_staff');"><i class="glyphicon glyphicon-sort"></i></a></th>
-                                        <!-- <th>Prénom Staff&nbsp;<a ng-click="sort_by('prenom_staff');"><i class="glyphicon glyphicon-sort"></i></a></th>-->
+                                        <th>Numero serie&nbsp;<a ng-click="sort_by('numero_serie');"><i class="glyphicon glyphicon-sort"></i></a></th>
+										<th>Compteur&nbsp;<a ng-click="sort_by('compteur');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <th>Contrat&nbsp;<a ng-click="sort_by('contrat');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <th>Facture&nbsp;<a ng-click="sort_by('facture');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <th>Description Produit&nbsp;<a ng-click="sort_by('description_P');"><i class="glyphicon glyphicon-sort"></i></a></th>
@@ -37,7 +38,7 @@
                                         <th>Pièces Recommandées&nbsp;<a ng-click="sort_by('recommended_pieces');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <th>Date Ajoutée&nbsp;<a ng-click="sort_by('repairdate');"><i class="glyphicon glyphicon-sort"></i></a></th>
                                         <!-- <th>Date de Mise à Jour&nbsp;<a ng-click="sort_by('collectiondate');"><i class="glyphicon glyphicon-sort"></i></a></th>-->
-                                        <!-- <th>Status&nbsp;<a ng-click="sort_by('status');"><i class="glyphicon glyphicon-sort"></i></a></th> -->
+                                        Status&nbsp;<a ng-click="sort_by('status');"><i class="glyphicon glyphicon-sort"></i></a></th> 
                                     </tr>
                                 </thead>
 
@@ -46,7 +47,8 @@
                                         <td>{{data.rep_id}}</td>
                                         <td>{{data.nom_entreprise}}</td>
                                         <td>{{data.nom_staff}}</td>
-                                        <!-- <td>{{data.prenom_staff}}</td>-->
+                                        <td>{{data.numero_serie}}</td>
+										<td>{{data.compteur}}</td>
                                         <td>{{data.contrat}}</td>
                                         <td>{{data.facture}}</td>
                                         <td>{{data.description_P}}</td>
@@ -55,7 +57,7 @@
                                         <td>{{data.recommended_pieces}}</td>
                                         <td>{{data.repairdate}}</td>
                                         <!-- <td>{{data.collectiondate}}</td>-->
-                                        <!--<td>{{data.status}}</td> -->
+                                        <td>{{data.status}}</td> 
                                     </tr>
                                 </tbody>
 

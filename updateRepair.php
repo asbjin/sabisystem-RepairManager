@@ -1,5 +1,6 @@
 <?php
 	require_once('session.php');
+	require_once('update/repairForm.php');
 	require_once('update/repairUpdated.php');
 	require_once('update/functions.php');
 	
@@ -16,7 +17,7 @@
 		<meta charset="utf-8">
 		<meta name="description" content="Lakeside Books">
 		<meta name="keywords" content="books, lakeside, cork, shop, online">
-		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<link rel="shortcut icon" href="favicon.ico"> 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/global.css">
@@ -56,30 +57,45 @@
 						?>
 					</span>
 					<form class="form-4" action="" method="post">
-					
-					<input type="hidden" name="ud_id" value="<?php echo $_POST['rep_update']; ?>" readonly>
-					
-					
-					<label for="ud_device">Device Type:</label>
-					<?php echo enumDropdown("repairs", "DeviceType", "ud_device"); ?>
-					
-					<label for="ud_brand">Brand:</label>
-					<input type="text" id="ud_brand" name="ud_brand" value="" required placeholder="Enter brand">
-					
-					<label for="ud_model">Model:</label>
-					<input type="text" id="ud_model" name="ud_model" value="" required placeholder="Enter model">
-					
-					<label for="ud_os">Operating System:</label>
-					<?php echo enumDropdown("repairs", "OS", "ud_os"); ?>
-					
-					<label for="ud_description">Description:</label>
-					<textarea id="ud_description" name="ud_description" rows="5" required placeholder="Enter description"></textarea>
-					
-					<label for="ud_status">Status:</label>
-					<?php echo enumDropdown("repairs", "Status", "ud_status"); ?>
-					
-					<input type="submit" name="submit" value="Update Repair Details">
+						<input type="hidden" name="rep_id" value="<?php echo $_POST['rep_update']; ?>" readonly>
+
+						<label for="cust_id">Customer ID:</label>
+						<input type="number" id="cust_id" name="cust_id" value="<?php echo $cust_id; ?>" required placeholder="Enter customer ID">
+
+						<label for="machine_id">Machine ID:</label>
+						<input type="text" id="machine_id" name="machine_id" value="<?php echo $machine_id; ?>" required placeholder="Enter machine ID">
+
+						<label for="contrat">Contract:</label>
+						<select id="contrat" name="contrat" required>
+							<option value="Oui" <?php if ($contrat == 'Oui') echo 'selected'; ?>>Oui</option>
+							<option value="Non" <?php if ($contrat == 'Non') echo 'selected'; ?>>Non</option>
+						</select>
+
+						<label for="facturer">A facturer:</label>
+						<select id="facturer" name="facturer" required>
+							<option value="Oui" <?php if ($facturer == 'Oui') echo 'selected'; ?>>Oui</option>
+							<option value="Non" <?php if ($facturer == 'Non') echo 'selected'; ?>>Non</option>
+						</select>
+
+						<label for="description_P">Problem Description:</label>
+						<textarea id="description_P" name="description_P" rows="5" required placeholder="Enter problem description"><?php echo $description_P; ?></textarea>
+
+						<label for="description_R">Repair Description:</label>
+						<textarea id="description_R" name="description_R" rows="5" required placeholder="Enter repair description"><?php echo $description_R; ?></textarea>
+
+						<label for="changed_pieces">Changed Pieces:</label>
+						<textarea id="changed_pieces" name="changed_pieces" rows="3" placeholder="Enter changed pieces"><?php echo $changed_pieces; ?></textarea>
+
+						<label for="recommended_pieces">Recommended Pieces:</label>
+						<textarea id="recommended_pieces" name="recommended_pieces" rows="3" placeholder="Enter recommended pieces"><?php echo $recommended_pieces; ?></textarea>
+
+						<label for="status">Status:</label>
+						<?php echo enumDropdown("repairs", "Status", "status"); ?> 
+
+						<input type="submit" name="submit" value="Update Repair Details">
 					</form>
+
+
 				</div>
 				
 			</div> 

@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 $deleted = '';
 $notDeleted = '';
@@ -9,20 +6,20 @@ $notDeleted = '';
 // Inclure le fichier de connexion à la base de données
 include '../dbconnect.php';
 
-if (isset($_POST['delete'])) {
-    $cust_id = $_POST['cust_id'];
 
+if (isset($_GET['delete'])) {
+    $cust_id = $_POST['cust_id'];
+   
     if ($cust_id == '' || !is_numeric($cust_id)) {
         $notDeleted = "You did not complete the delete form correctly";
         header("Location: ../customer.php?error=" . urlencode($notDeleted));
         exit();
     } else {
-        // Commencer une transaction
         mysqli_begin_transaction($conn);
 
         try {
             // Mettre à jour les enregistrements dans repairs
-            $sql_update_repairs = "UPDATE repairs SET Cust_ID = NULL WHERE Cust_ID = ?";
+            $sql_update_repairs = "UPDATE repairs SET cust_id = NULL WHERE cust_id = ?";
             $stmt_update_repairs = mysqli_prepare($conn, $sql_update_repairs);
 
             if (!$stmt_update_repairs) {
@@ -31,6 +28,17 @@ if (isset($_POST['delete'])) {
 
             mysqli_stmt_bind_param($stmt_update_repairs, "i", $cust_id);
             mysqli_stmt_execute($stmt_update_repairs);
+
+            // Mettre à jour les enregistrements dans machines
+            $sql_update_machines = "UPDATE machines SET cust_id = NULL WHERE cust_id = ?";
+            $stmt_update_machines = mysqli_prepare($conn, $sql_update_machines);
+
+            if (!$stmt_update_machines) {
+                throw new Exception("Failed to prepare update statement: " . mysqli_error($conn));
+            }
+
+            mysqli_stmt_bind_param($stmt_update_machines, "i", $cust_id);
+            mysqli_stmt_execute($stmt_update_machines);
 
             // Supprimer le client de la table customers
             $sql_delete_customer = "DELETE FROM customers WHERE cust_id = ?";
@@ -59,6 +67,9 @@ if (isset($_POST['delete'])) {
         if (isset($stmt_update_repairs)) {
             mysqli_stmt_close($stmt_update_repairs);
         }
+        if (isset($stmt_update_machines)) {
+            mysqli_stmt_close($stmt_update_machines);
+        }
         if (isset($stmt_delete_customer)) {
             mysqli_stmt_close($stmt_delete_customer);
         }
@@ -68,5 +79,3 @@ if (isset($_POST['delete'])) {
     }
 }
 ?>
-
-

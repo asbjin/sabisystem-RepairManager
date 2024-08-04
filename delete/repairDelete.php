@@ -10,7 +10,7 @@ $notDeleted = '';
 include '../dbconnect.php';
 
 if (isset($_POST['delete'])) {
-    $rep_id = $_POST['rep_id'];
+    $rep_id = $_POST['rep_delete'];
 
     if ($rep_id == '' || !is_numeric($rep_id)) {
         $notDeleted = "You did not complete the delete form correctly";

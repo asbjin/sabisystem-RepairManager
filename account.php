@@ -1,5 +1,6 @@
 <?php
 	require_once('session.php');
+	require('addNewStaff.php'); 
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
 		<link rel="shortcut icon" href="favicon.ico"> 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/global.css">
-		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 		<link rel="stylesheet" href="css/menu.css" />
 		<script src="js/modernizr.custom.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -79,6 +80,44 @@
 						mysqli_close($conn);
 
 				?>
+
+		<div class="container">
+					<div class="rect reg">
+						<form class="form-4" method="POST" action="">
+							
+								<h3>Register</h3>
+								<span id="error"><?php echo $error; ?></span>
+								<span id="error"><?php echo $success; ?></span>
+								<label for="surname">surname</label>
+								<input type="text" name="surname" placeholder="Surname" required>
+								
+								<label for="forename">forename</label>
+								<input type="text" name="forename" placeholder="Forename" required>
+								
+								<label for="email">email</label>
+								<input type="text" name="email" placeholder="Email" required>
+								
+								<label for="town">town</label>
+								<input type="text" name="town" placeholder="Town">
+								
+								<label for="county">county</label>
+								<input type="text" name="county" placeholder="County">
+								
+								<label for="telephone">telephone</label>
+								<input type="text" name="telephone" placeholder="Telephone/Mobile">
+								
+								<label for="login">username</label>
+								<input type="text" name="username" placeholder="Username" required>
+							
+								<label for="password">password</label>
+								<input type="password" name="password" placeholder="Password" required> 
+
+								<input type="submit" name="submit" value="Register">
+								
+						</form>
+						
+					</div>
+				</div>
 				
 			</div> 
 			<!-- END OF FULL WIDGET-->
